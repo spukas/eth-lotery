@@ -1,0 +1,8 @@
+{
+  "name": "Lotery",
+  "version": "1.0.0",
+  "description": "Lotery to win some ethereum",
+  "main": "index.js",
+  "author": "Linas",
+  "license": "MIT"
+}
