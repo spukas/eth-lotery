@@ -18,6 +18,8 @@ const deploy = async () => {
     .deploy({ data: bytecode })
     .send({ gas: '1000000', from: accounts[0] });
 
+  // interface and contract address needs to be coppied to use with React
+  console.log(interface);
   console.log('contract deployed to', result.options.address);
 };
 
