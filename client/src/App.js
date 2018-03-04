@@ -9,6 +9,8 @@ class App extends Component {
     players: '',
     balance: '0',
     value: '',
+    message: '',
+    error: '',
   };
 
   async componentDidMount() {
@@ -29,12 +31,16 @@ class App extends Component {
 
     const accounts = await web3.eth.getAccounts();
 
-    console.log({ accounts });
-
-    await lottery.methods.enter().send({
-      from: accounts[0],
-      value: web3.utils.toWei(this.state.value, 'ether'),
-    });
+    try {
+      this.setState({ message: 'Verifying, please wait...' });
+      await lottery.methods.enter().send({
+        from: accounts[0],
+        value: web3.utils.toWei(this.state.value, 'ether'),
+      });
+      this.setState({ message: 'You have succesfully entered lottery' });
+    } catch (error) {
+      this.setState({ error: 'Sorry, payment has been rejected :(' });
+    }
   };
 
   render() {
@@ -53,6 +59,9 @@ class App extends Component {
           <input value={this.state.value} onChange={this.handleInputChange} />
           <button type="submit">Enter</button>
         </form>
+
+        <hr />
+        <h2>{this.state.error || this.state.message}</h2>
       </div>
     );
   }
