@@ -3,7 +3,7 @@ import web3 from './web3';
 
 // Assign contract address and interface
 // From deploying lottery contract
-const address = '0x93bb0FD77b36E63e1ac846c771135879aB485F7d';
+const address = '0x579B329D6Ec310441baf7fedda7d84C113C10B25';
 const abi = [
   {
     constant: true,
@@ -37,6 +37,15 @@ const abi = [
     inputs: [],
     name: 'getPlayers',
     outputs: [{ name: '', type: 'address[]' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: 'winner',
+    outputs: [{ name: '', type: 'address' }],
     payable: false,
     stateMutability: 'view',
     type: 'function',

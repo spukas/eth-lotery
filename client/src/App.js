@@ -43,6 +43,26 @@ class App extends Component {
     }
   };
 
+  handlePickWinner = async () => {
+    const accounts = await web3.eth.getAccounts();
+
+    try {
+      this.setState({
+        message: 'Picking winner and verifying, please wait...',
+      });
+      await lottery.methods.pickWinner().send({
+        from: accounts[0],
+      });
+
+      const winner = await lottery.methods.winner().call();
+      this.setState({
+        message: `Winner has been picked. Funds will be transfered to: ${winner}`,
+      });
+    } catch (error) {
+      this.setState({ error: 'Winner could not be picked.' });
+    }
+  };
+
   render() {
     return (
       <div>
@@ -61,6 +81,10 @@ class App extends Component {
         </form>
 
         <hr />
+        <h4>Ready to pick a winner?</h4>
+        <button onClick={this.handlePickWinner}>Pick a winner</button>
+        <hr />
+
         <h2>{this.state.error || this.state.message}</h2>
       </div>
     );
